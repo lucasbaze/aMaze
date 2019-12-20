@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- AFrame -->
+        <script src="//aframe.io/releases/0.8.2/aframe.min.js"></script>
+        <!-- Extras : Movement Controls -->
+        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script>
+        <!-- Physics -->
+        <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+        <!-- Camera Object Collider -->
+        <script src="components/kinema-body.js"></script>
+        <!-- Templates -->
+        <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+        <!-- Layouting -->
+        <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+        <!-- Event setters -->
+        <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+        <script src="components/logger.js"></script>
+    </head>
+
+    <body>
+        <a-scene physics="debug: true">
+            <a-assets>
+                <script id="wall" type="text/html">
+                    <a-entity
+                    static-body
+                    class="wall"
+                    geometry="primitive: box; height: 4; width: 1, depth: 1"
+                    material="color: red";
+                    event-set__mouseenter="material.color: blue"
+                    event-set__collide="material.color: green"
+                    >
+                    </a-entity>
+                </script>
+            </a-assets>
+
+            <!-- Maze -->
+            <a-entity
+                id="links"
+                layout="layout: line; margin: 1.5"
+                position="-1 2 -4"
+                rotation="0 0 0 "
+            >
+                <a-entity template="src: #wall"></a-entity>
+                <a-entity template="src: #wall"></a-entity>
+                <a-entity template="src: #wall"></a-entity>
+            </a-entity>
+            <a-entity
+                static-body
+                geometry="primitive: plane; height: 4; width: 4"
+                material="color: green"
+                rotation="0 -90 0"
+                position="1 0 -2"
+                event-set__collide="material.color: blue"
+            ></a-entity>
+            <a-entity
+                static-body
+                geometry="primitive: plane; height: 4; width: 4"
+                material="color: red"
+                rotation="-90 0 0"
+                position="1 0.01 -4"
+                event-set__collide="material.color: blue"
+            ></a-entity>
+
+            <!-- Ground -->
+            <a-plane
+                static-body
+                position="0 0 0"
+                rotation="-90 0 0"
+                width="100"
+                height="100"
+                color="#7BC8A4"
+            ></a-plane>
+
+            <!-- Sky -->
+            <a-sky logger color="#ECECEC"></a-sky>
+
+            <!-- Camera & User -->
+            <a-entity
+                kinema-body="radius: 0.2"
+                movement-controls="fly: false"
+                position="0 0 0"
+            >
+                <a-entity camera position="0 1.6 0">
+                    <a-cursor></a-cursor>
+                </a-entity>
+                <!-- Left Hand -->
+                <!-- <a-entity id="rightHand" hand-controls="left"> -->
+                <a-entity
+                    vive-controls="hand: left; model:false"
+                    oculus-touch-controls="hand: left; model:false"
+                    haptics="dur: 40"
+                >
+                    <a-sphere
+                        radius="0.04"
+                        material="transparent: true; opacity: 0.3; color: #517ecb; emissive: #fff; emissiveIntensity: 0.4"
+                        animation__emissive="property: material.emissiveIntensity; from: 1.0; to: 0.4; dur: 800; startEvents: hit"
+                        animation__opacity="property: material.opacity; from: 1.0; to: 0.3; dur: 800; startEvents: hit"
+                    ></a-sphere>
+                </a-entity>
+                <!-- </a-entity> -->
+                <!-- Right Hand -->
+                <a-entity id="rightHand" hand-controls="right">
+                    <a-entity
+                        vive-controls="hand: right; model:false"
+                        oculus-touch-controls="hand: right; model:false"
+                        haptics="dur: 40"
+                    >
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+        </a-scene>
+    </body>
+</html>

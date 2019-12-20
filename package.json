@@ -1,0 +1,14 @@
+{
+    "name": "aMaze",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/lucasbaze/aMaze.git",
+    "author": "Lucas Bazemore <lucasabazemore@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "budo --live --port 3000 --open"
+    },
+    "dependencies": {
+        "budo": "^11.6.3"
+    }
+}
