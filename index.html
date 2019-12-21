@@ -17,51 +17,39 @@
         <!-- Event setters -->
         <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
         <script src="components/logger.js"></script>
+        <script src="components/maze.js"></script>
     </head>
 
     <body>
         <a-scene physics="debug: true">
             <a-assets>
-                <script id="wall" type="text/html">
-                    <a-entity
-                    static-body
+                <a-mixin
+                    id="wallVoxel"
                     class="wall"
-                    geometry="primitive: box; height: 4; width: 1, depth: 1"
-                    material="color: red";
-                    event-set__mouseenter="material.color: blue"
-                    event-set__collide="material.color: green"
-                    >
-                    </a-entity>
-                </script>
+                    static-body
+                    geometry="primitive: box; height: 4; width: 0.1; depth: 4;"
+                    material="color: blue;"
+                    event-set__collide="material.color: red"
+                ></a-mixin>
             </a-assets>
 
             <!-- Maze -->
-            <a-entity
-                id="links"
-                layout="layout: line; margin: 1.5"
-                position="-1 2 -4"
-                rotation="0 0 0 "
-            >
-                <a-entity template="src: #wall"></a-entity>
-                <a-entity template="src: #wall"></a-entity>
-                <a-entity template="src: #wall"></a-entity>
-            </a-entity>
-            <a-entity
-                static-body
-                geometry="primitive: plane; height: 4; width: 4"
-                material="color: green"
-                rotation="0 -90 0"
-                position="1 0 -2"
-                event-set__collide="material.color: blue"
-            ></a-entity>
+            <a-entity amaze position="0 0 0"></a-entity>
+
+            <!-- Test collision -->
+            <!-- Thinking of using a "ground plate to trigger win
+			 at the end of the maze -->
             <a-entity
                 static-body
                 geometry="primitive: plane; height: 4; width: 4"
                 material="color: red"
                 rotation="-90 0 0"
-                position="1 0.01 -4"
+                position="0 0.01 0"
                 event-set__collide="material.color: blue"
             ></a-entity>
+
+            <!-- Just for reference -->
+            <a-sphere position="0 0 0" radius="0.5"></a-sphere>
 
             <!-- Ground -->
             <a-plane
@@ -74,17 +62,15 @@
             ></a-plane>
 
             <!-- Sky -->
-            <a-sky logger color="#ECECEC"></a-sky>
+            <a-sky logger data-target="hello" color="#ECECEC"></a-sky>
 
             <!-- Camera & User -->
             <a-entity
                 kinema-body="radius: 0.2"
                 movement-controls="fly: false"
-                position="0 0 0"
+                position="0 0 5"
             >
-                <a-entity camera position="0 1.6 0">
-                    <a-cursor></a-cursor>
-                </a-entity>
+                <a-entity camera look-controls position="0 10.6 1"> </a-entity>
                 <!-- Left Hand -->
                 <!-- <a-entity id="rightHand" hand-controls="left"> -->
                 <a-entity
@@ -107,6 +93,10 @@
                         oculus-touch-controls="hand: right; model:false"
                         haptics="dur: 40"
                     >
+                        <a-cursor
+                            raycaster="showLine: true"
+                            rotation="0 20 0"
+                        ></a-cursor>
                     </a-entity>
                 </a-entity>
             </a-entity>

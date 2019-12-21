@@ -1,5 +1,6 @@
 AFRAME.registerComponent('logger', {
     init: function() {
-        console.log(this.el);
+        console.dir(this.el);
+        console.log(this.data);
     },
 });
