@@ -72,21 +72,26 @@ AFRAME.registerComponent('amaze', {
     },
     removeWalls: function(a, b) {
         let x = a.i - b.i;
-        console.log(x);
-        console.log(a);
+
+        //If the neighbor is the right cell
         if (x === -1) {
             a.walls[1] = false;
             b.walls[3] = false;
-        } else if (x === 1) {
+        }
+        //If the neighbor is the left cell
+        else if (x === 1) {
             a.walls[3] = false;
             b.walls[1] = false;
         }
 
         let y = a.j - b.j;
+        //If the neighbor is the top cell
         if (y === -1) {
             a.walls[0] = false;
             b.walls[2] = false;
-        } else if (y === 1) {
+        }
+        //If the neighbor is the bottom cell
+        else if (y === 1) {
             a.walls[2] = false;
             b.walls[0] = false;
         }
@@ -108,6 +113,7 @@ function Cell(i, j, w, cols, rows) {
     //Because the cells are in a single array
     //This will get the right index
     function index(i, j) {
+        //Handle the edge case
         if (i < 0 || j < 0 || i > cols - 1 || j > rows - 1) {
             return -1;
         }
@@ -123,7 +129,8 @@ function Cell(i, j, w, cols, rows) {
         let bottom = grid[index(i, j + 1)];
         let left = grid[index(i - 1, j)];
 
-        //Bc I'm lazy
+        //Check if not undefined and not visited
+        //For each one
         if (top && !top.visited) {
             neighbors.push(top);
         }
@@ -158,7 +165,7 @@ function Cell(i, j, w, cols, rows) {
             //Wall set to the wallVoxel mixin in assets
             wall.setAttribute('mixin', 'wallVoxel');
 
-            //Update position based on this URL
+            //Update position (based on this URL)
             //https://aframe.io/docs/1.0.0/components/position.html#updating-position
             //Using the z as the "y-axis"
             wall.object3D.position.set(xpos, w / 2, -ypos);
@@ -175,7 +182,7 @@ function Cell(i, j, w, cols, rows) {
 
         //Top wall
         if (this.walls[0]) {
-            //I'm call the function so I can bind "this" to the this.visited value to the generateWall function
+            //I'm calling the function so I can bind "this" to the this.visited value to the generateWall function
             generateWall.call(this, x, y + w, 90);
         }
         //Right wall
