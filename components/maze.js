@@ -96,6 +96,12 @@ AFRAME.registerComponent('amaze', {
             b.walls[0] = false;
         }
     },
+    newGame: function() {
+        this.level = 1;
+        this.time = 20000;
+        this.height = 20;
+        this.width = 20;
+    },
 });
 
 function Cell(i, j, w, cols, rows) {
