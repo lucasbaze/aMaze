@@ -1,19 +1,24 @@
 //Holds all the Cells
 let grid = [];
+//Current cell we're on
 let current;
+//Stack
+let stack = [];
 
 AFRAME.registerComponent('amaze', {
     schema: {
-        height: { default: 20 },
-        width: { default: 20 },
+        //Changes the height and width of the maze
+        height: { type: 'int', default: 40 },
+        width: { type: 'int', default: 40 },
         //Same as mixin wall length (though it shouldn't have to be)
         //Have tried to change the wall width and height
         //of the mixing voxel through here
         w: { default: 4 },
     },
     init: function() {
-        let cols = this.data.width / this.data.w;
-        let rows = this.data.height / this.data.w;
+        //Ensure ints
+        let cols = Math.floor(this.data.width / this.data.w);
+        let rows = Math.floor(this.data.height / this.data.w);
 
         //Loop through each col and rows and push to grid a new cell
         for (let j = 0; j < rows; j++) {
@@ -30,19 +35,60 @@ AFRAME.registerComponent('amaze', {
         //Set the first cell to current
         current = grid[0];
         current.visited = true;
-        current.generateWalls(this);
+        //Set the first cell to 0 to be able to walk through
+        current.walls[2] = false;
 
         //Step forward to generate walls
-        for (let i = 1; i < grid.length; i++) {
-            //Get a random neighbor to go to
+        for (let i = 0; i < grid.length * 2; i++) {
+            //Step 1
+            //Get a random neighbor cell to go to
             let next = current.checkNeighbors();
             //Make sure it's not undefined
             if (next) {
                 next.visited = true;
-                //Pass this(maze) to add walls to maze component
-                next.generateWalls(this);
+                //Step 2
+                //Push current cell to stack
+                stack.push(current);
+
+                //Step 3
+                this.removeWalls(current, next);
+
+                //Step 4
                 current = next;
+            } else if (stack.length > 0) {
+                //Assign current to the last cell in the stack
+                //Marches onward
+                current = stack.pop();
             }
+        }
+
+        //Set last cell ( top right) as the exit
+        grid[grid.length - 1].walls[0] = false;
+
+        //Build the walls needed
+        for (let i = 0; i < grid.length; i++) {
+            grid[i].generateWalls(this);
+        }
+    },
+    removeWalls: function(a, b) {
+        let x = a.i - b.i;
+        console.log(x);
+        console.log(a);
+        if (x === -1) {
+            a.walls[1] = false;
+            b.walls[3] = false;
+        } else if (x === 1) {
+            a.walls[3] = false;
+            b.walls[1] = false;
+        }
+
+        let y = a.j - b.j;
+        if (y === -1) {
+            a.walls[0] = false;
+            b.walls[2] = false;
+        } else if (y === 1) {
+            a.walls[2] = false;
+            b.walls[0] = false;
         }
     },
 });
@@ -111,8 +157,6 @@ function Cell(i, j, w, cols, rows) {
 
             //Wall set to the wallVoxel mixin in assets
             wall.setAttribute('mixin', 'wallVoxel');
-
-            console.log(`${this.visited}`);
 
             //Update position based on this URL
             //https://aframe.io/docs/1.0.0/components/position.html#updating-position
