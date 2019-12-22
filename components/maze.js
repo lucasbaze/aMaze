@@ -69,6 +69,16 @@ AFRAME.registerComponent('amaze', {
         for (let i = 0; i < grid.length; i++) {
             grid[i].generateWalls(this);
         }
+
+        //create the final endPlate to trigger the end of the game
+        let endPlate = document.createElement('a-entity');
+        endPlate.setAttribute('mixin', 'endPlate');
+        endPlate.object3D.position.set(
+            this.data.width - 4,
+            0.01,
+            -this.data.height + 2
+        );
+        this.el.appendChild(endPlate);
     },
     removeWalls: function(a, b) {
         let x = a.i - b.i;
@@ -106,14 +116,13 @@ AFRAME.registerComponent('amaze', {
         this.width = 20;
         console.log('Game Started!', this);
     },
-    //My way of triggering the start of the game
-    //Would like to use the code that is commented out...
-    //It's how the supersays game works, by proxying events to other components
-    //But for some reason proxy-event="event: collide; to: #amaze"
     //play() is also a default method on entities. Idk what the difference is between play() and init() candidly.
     play: function() {
-        this.startPlate = document.getElementById('startPlate');
-        this.startPlate.addEventListener('collide', this.startGame.bind(this));
+        this.el.addEventListener('startGame', this.startGame.bind(this));
+        this.el.addEventListener('endLevel', this.endLevel.bind(this));
+    },
+    endLevel: function() {
+        console.log('Beat the level!');
     },
 });
 
