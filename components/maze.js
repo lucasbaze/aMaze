@@ -116,7 +116,7 @@ AFRAME.registerComponent('amaze', {
         this.width = 20;
         console.log('Game Started!', this);
     },
-    //play() is also a default method on entities. Idk what the difference is between play() and init() candidly.
+    //play() is also a default method on entities.
     play: function() {
         this.el.addEventListener('startGame', this.startGame.bind(this));
         this.el.addEventListener('endLevel', this.endLevel.bind(this));
