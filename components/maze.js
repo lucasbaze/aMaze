@@ -96,11 +96,24 @@ AFRAME.registerComponent('amaze', {
             b.walls[0] = false;
         }
     },
-    newGame: function() {
+    // Thinking about how the level actions should work
+    //Would like it to work so that a new maze is created
+    // on each level... Does nothing at the moment
+    startGame: function() {
         this.level = 1;
         this.time = 20000;
         this.height = 20;
         this.width = 20;
+        console.log('Game Started!', this);
+    },
+    //My way of triggering the start of the game
+    //Would like to use the code that is commented out...
+    //It's how the supersays game works, by proxying events to other components
+    //But for some reason proxy-event="event: collide; to: #amaze"
+    //play() is also a default method on entities. Idk what the difference is between play() and init() candidly.
+    play: function() {
+        this.startPlate = document.getElementById('startPlate');
+        this.startPlate.addEventListener('collide', this.startGame.bind(this));
     },
 });
 
