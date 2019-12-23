@@ -101,7 +101,7 @@ AFRAME.registerComponent('amaze', {
     startGame: function() {
         console.log('Game Started!');
         this.isPlaying = true;
-        this.time = 3 * 60 * 1000; // 3 minutes
+        this.time = 1 * 5 * 1000; // 3 minutes
         this.clocks = document.querySelectorAll('.clock');
 
         this.countDown();
@@ -112,6 +112,7 @@ AFRAME.registerComponent('amaze', {
         this.el.addEventListener('gameOver', this.gameOver.bind(this));
     },
     gameOver: function() {
+        clearInterval(this.timeOut);
         if (this.time > 0) {
             console.log('Beat the level!');
         } else {
@@ -119,7 +120,7 @@ AFRAME.registerComponent('amaze', {
         }
     },
     countDown: function() {
-        let time = setInterval(() => {
+        this.timeOut = setInterval(() => {
             let minutes = Math.floor(
                 (this.time % (1000 * 60 * 60)) / (1000 * 60)
             );
@@ -132,7 +133,7 @@ AFRAME.registerComponent('amaze', {
             });
             this.time -= 1000;
             if (this.time < 0) {
-                clearInterval(time);
+                clearInterval(this.timeOut);
                 this.el.emit('gameOver');
             }
         }, 1000);
