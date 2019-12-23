@@ -24,6 +24,7 @@
         <!-- Custom -->
         <script src="components/logger.js"></script>
         <script src="components/maze.js"></script>
+        <script src="components/clock.js"></script>
         <!-- Camera Object Collider -->
         <script src="components/kinema-body.js"></script>
     </head>
@@ -61,6 +62,14 @@
                 amaze="height: 60; width: 60"
                 position="0 0 0"
             ></a-entity>
+
+            <!-- Global Positioned Clock -->
+            <a-entity
+                clock
+                geometry="primitive: box; height: 5; width: 0.1; depth: 10;"
+                position="28 15 -28"
+            >
+            </a-entity>
 
             <!-- Test collision -->
             <!-- Thinking of using a "ground plate to trigger win
@@ -130,12 +139,13 @@
 
             <!-- Camera & User -->
             <a-entity
+                id="player"
                 kinema-body="radius: 0.2"
                 movement-controls="fly: false"
                 position="28 0 3"
             >
                 <!-- I basically set this to 10.6 to see everything and 1.6 to play the game -->
-                <a-entity camera look-controls position="0 10.6 0"> </a-entity>
+                <a-entity camera look-controls position="0 1.6 0"> </a-entity>
                 <!-- Left Hand -->
                 <!-- <a-entity id="rightHand" hand-controls="left"> -->
                 <a-entity
