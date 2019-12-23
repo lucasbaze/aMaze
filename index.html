@@ -55,9 +55,10 @@
 
             <!-- Maze -->
             <!-- You can change the height and width here -->
+            <!-- Increments of 4 -->
             <a-entity
                 id="amaze"
-                amaze="height: 16; width: 16"
+                amaze="height: 60; width: 60"
                 position="0 0 0"
             ></a-entity>
 
@@ -79,32 +80,34 @@
             <!-- Starting Room -->
             <a-entity
                 mixin="wallVoxel"
-                position="2 2 2"
+                position="30 2 2"
                 rotation="0 0 0"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
-                position="-2 2 2"
+                position="26 2 2"
                 rotation="0 0 0"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
-                position="0 2 4"
+                position="28 2 4"
                 rotation="0 90 0"
             ></a-entity>
 
             <!-- Wanted to test 2 different styles of fonts -->
             <!-- Candidly, Regular text is easier to deal with, but geometry text is easier to read -->
-            <a-entity
-                text-geometry="value: Welcome!; size: 0.5; height: 0.02;"
-                position="-1.5 4 0"
-                material="color: black;"
-            ></a-entity>
-            <a-entity
-                text-geometry="value: Are you ready to get lost?; size: 0.2; height: 0.02"
-                position="-1.5 3.5 0"
-                material="color: black"
-            >
+            <a-entity position="28 0 0">
+                <a-entity
+                    text-geometry="value: Welcome!; size: 0.5; height: 0.02;"
+                    position="-1.5 4 0"
+                    material="color: black;"
+                ></a-entity>
+                <a-entity
+                    text-geometry="value: Are you ready to get lost?; size: 0.2; height: 0.02"
+                    position="-1.5 3.5 0"
+                    material="color: black"
+                >
+                </a-entity>
             </a-entity>
             <a-entity
                 text="value: All you have to do is find the exit. \n Good Luck!; color: black; side: double; width: 4; align: center; baseline: center;"
@@ -115,7 +118,7 @@
             <!-- Ground -->
             <a-plane
                 static-body
-                position="48 0 -46"
+                position="44 0 -46"
                 rotation="-90 0 0"
                 width="100"
                 height="100"
@@ -129,7 +132,7 @@
             <a-entity
                 kinema-body="radius: 0.2"
                 movement-controls="fly: false"
-                position="0 0 3"
+                position="28 0 3"
             >
                 <!-- I basically set this to 10.6 to see everything and 1.6 to play the game -->
                 <a-entity camera look-controls position="0 10.6 0"> </a-entity>

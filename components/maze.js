@@ -35,10 +35,14 @@ AFRAME.registerComponent('amaze', {
         //Set the first cell to current
         current = grid[0];
         current.visited = true;
-        //Set the first cell to 0 to be able to walk through
-        current.walls[2] = false;
 
-        //Step forward to generate walls
+        //Set starting opening wall in the middle of the bottom row
+        grid[7].walls[2] = false;
+
+        //Set ending opening wall in the middle top
+        grid[grid.length - 8].walls[0] = false;
+
+        //Step forward to decide which walls to build
         for (let i = 0; i < grid.length * 2; i++) {
             //Step 1
             //Get a random neighbor cell to go to
@@ -62,9 +66,6 @@ AFRAME.registerComponent('amaze', {
             }
         }
 
-        //Set last cell ( top right) as the exit
-        grid[grid.length - 1].walls[0] = false;
-
         //Build the walls needed
         for (let i = 0; i < grid.length; i++) {
             grid[i].generateWalls(this);
@@ -74,7 +75,7 @@ AFRAME.registerComponent('amaze', {
         let endPlate = document.createElement('a-entity');
         endPlate.setAttribute('mixin', 'endPlate');
         endPlate.object3D.position.set(
-            this.data.width - 4,
+            this.data.width / 2 - 2,
             0.01,
             -this.data.height + 2
         );
