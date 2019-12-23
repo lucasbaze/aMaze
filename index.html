@@ -20,7 +20,6 @@
         <script src="https://unpkg.com/aframe-proxy-event-component/dist/aframe-proxy-event-component.min.js"></script>
         <!-- Font Geometry for 3D text -->
         <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
-
         <!-- Custom -->
         <script src="components/logger.js"></script>
         <script src="components/maze.js"></script>
@@ -40,18 +39,6 @@
                     material="color: blue;"
                     event-set__collide="material.color: red"
                 ></a-mixin>
-                <!-- Almost a duplicate of the startGame -->
-                <!-- Using this to add the "endplate" and position it
-                depending on the location of the of end of the maze -->
-                <a-mixin
-                    id="endPlate"
-                    static-body
-                    geometry="primitive: plane; height: 4; width: 4"
-                    material="color: blue"
-                    rotation="-90 0 0"
-                    event-set__collide="material.color: red"
-                    proxy-event="event: collide; to: #amaze; as: endLevel;"
-                ></a-mixin>
             </a-assets>
 
             <!-- Maze -->
@@ -63,27 +50,55 @@
                 position="0 0 0"
             ></a-entity>
 
-            <!-- Global Positioned Clock -->
+            <!-- Center Positioned Clock -->
+            <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees. So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.
+            -->
             <a-entity
                 clock
-                geometry="primitive: box; height: 5; width: 0.1; depth: 10;"
+                id="clock-container"
+                geometry="primitive: box; height: 4; width: 0.1; depth: 8;"
                 position="28 15 -28"
             >
+                <a-entity
+                    class="clock"
+                    text-geometry="value: 3:00; size: 2.5; height: 0.1;"
+                    position="0 -1 -4"
+                    rotation="0 -90 0"
+                    material="color: black;"
+                >
+                </a-entity>
+                <a-entity
+                    class="clock"
+                    text-geometry="value: 3:00; size: 2.5; height: 0.1;"
+                    position="0 -1 4"
+                    rotation="0 90 0"
+                    material="color: black;"
+                >
+                </a-entity>
             </a-entity>
 
-            <!-- Test collision -->
-            <!-- Thinking of using a "ground plate to trigger win
-             at the end of the maze -->
-            <!-- The proxy-event doesn't seem to proxy the event as I'd like -->
+            <!-- StartGame Plate -->
             <a-entity
                 static-body
                 id="startPlate"
-                geometry="primitive: plane; height: 4; width: 4"
+                geometry="primitive: plane; height: 0.1; width: 4"
                 material="color: red"
                 rotation="-90 0 0"
-                position="0 0.01 -2"
+                position="28 0.01 0.05"
                 event-set__collide="material.color: blue"
                 proxy-event="event: collide; to: #amaze; as: startGame;"
+            ></a-entity>
+
+            <!-- Endgame plate -->
+            <a-entity
+                static-body
+                id="endPlate"
+                geometry="primitive: plane; height: 0.5; width: 4"
+                material="color: red"
+                rotation="-90 0 0"
+                position="28 0.01 -60"
+                event-set__collide="material.color: blue"
+                proxy-event="event: collide; to: #amaze; as: gameOver;"
             ></a-entity>
 
             <!-- Starting Room -->
@@ -145,7 +160,7 @@
                 position="28 0 3"
             >
                 <!-- I basically set this to 10.6 to see everything and 1.6 to play the game -->
-                <a-entity camera look-controls position="0 1.6 0"> </a-entity>
+                <a-entity camera look-controls position="0 10.6 0"> </a-entity>
                 <!-- Left Hand -->
                 <!-- <a-entity id="rightHand" hand-controls="left"> -->
                 <a-entity

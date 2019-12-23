@@ -70,16 +70,6 @@ AFRAME.registerComponent('amaze', {
         for (let i = 0; i < grid.length; i++) {
             grid[i].generateWalls(this);
         }
-
-        //create the final endPlate to trigger the end of the game
-        let endPlate = document.createElement('a-entity');
-        endPlate.setAttribute('mixin', 'endPlate');
-        endPlate.object3D.position.set(
-            this.data.width / 2 - 2,
-            0.01,
-            -this.data.height + 2
-        );
-        this.el.appendChild(endPlate);
     },
     removeWalls: function(a, b) {
         let x = a.i - b.i;
@@ -108,22 +98,44 @@ AFRAME.registerComponent('amaze', {
         }
     },
     // Thinking about how the level actions should work
-    //Would like it to work so that a new maze is created
-    // on each level... Does nothing at the moment
     startGame: function() {
-        this.level = 1;
-        this.time = 20000;
-        this.height = 20;
-        this.width = 20;
-        console.log('Game Started!', this);
+        console.log('Game Started!');
+        this.isPlaying = true;
+        this.time = 3 * 60 * 1000; // 3 minutes
+        this.clocks = document.querySelectorAll('.clock');
+
+        this.countDown();
     },
     //play() is also a default method on entities.
     play: function() {
         this.el.addEventListener('startGame', this.startGame.bind(this));
-        this.el.addEventListener('endLevel', this.endLevel.bind(this));
+        this.el.addEventListener('gameOver', this.gameOver.bind(this));
     },
-    endLevel: function() {
-        console.log('Beat the level!');
+    gameOver: function() {
+        if (this.time > 0) {
+            console.log('Beat the level!');
+        } else {
+            console.log('Oh no! You lost!');
+        }
+    },
+    countDown: function() {
+        let time = setInterval(() => {
+            let minutes = Math.floor(
+                (this.time % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
+            this.clocks[0].setAttribute('text-geometry', {
+                value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
+            });
+            this.clocks[1].setAttribute('text-geometry', {
+                value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
+            });
+            this.time -= 1000;
+            if (this.time < 0) {
+                clearInterval(time);
+                this.el.emit('gameOver');
+            }
+        }, 1000);
     },
 });
 
