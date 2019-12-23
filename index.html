@@ -30,18 +30,30 @@
     </head>
 
     <body>
-        <a-scene physics="debug: true">
+        <a-scene
+            shadow
+            sound="src: url(./assets/background.wav); loop: true; autoplay: true; volume: 6"
+        >
             <a-assets>
+                <img id="grass" src="assets/dark-grass.jpg" />
+                <img id="trees" src="assets/dark-trees.jpg" />
+                <a-asset-item
+                    id="wall"
+                    src="models/wall/scene.gltf"
+                ></a-asset-item>
                 <a-mixin
                     id="wallVoxel"
                     class="wall"
                     static-body
-                    geometry="primitive: box; height: 4; width: 0.1; depth: 4;"
-                    material="color: blue;"
+                    shadow="cast: true;"
+                    geometry="primitive: box; height: 3.95; width: 0.1; depth: 3.95;"
+                    material="src: #trees; color: #933838;"
                     event-set__collide="material.color: red"
-                ></a-mixin>
+                >
+                </a-mixin>
             </a-assets>
 
+            <!-- gltf-model="#wall" -->
             <!-- Maze -->
             <!-- You can change the height and width here -->
             <!-- Increments of 4 -->
@@ -51,6 +63,14 @@
                 position="0 0 0"
             ></a-entity>
 
+            <!-- Testing adding in a model for the walls -->
+            <!-- <a-entity
+                gltf-model="#wall"
+                position="28 1 -5"
+                scale="0.001 0.001 0.001"
+                rotation="0 -90 0"
+            ></a-entity> -->
+
             <!-- Center Positioned Clock -->
             <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees. So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.
             -->
@@ -59,13 +79,15 @@
                 id="clock-container"
                 geometry="primitive: box; height: 4; width: 0.1; depth: 8;"
                 position="28 18 -28"
+                material="color: #191919"
+                sound="src: url(./assets/gong1.wav); volume: 10;"
             >
                 <a-entity
                     class="clock"
                     text-geometry="value: 0:00; size: 2.5; height: 0.1;"
-                    position="0 -1 -4"
+                    position="0 -1 -3.25"
                     rotation="0 -90 0"
-                    material="color: black;"
+                    material="color: #933838;"
                 >
                 </a-entity>
                 <a-entity
@@ -73,7 +95,7 @@
                     text-geometry="value: 0:00; size: 2.5; height: 0.1;"
                     position="0 -1 4"
                     rotation="0 90 0"
-                    material="color: black;"
+                    material="color: #933838;"
                 >
                 </a-entity>
             </a-entity>
@@ -83,7 +105,7 @@
                 static-body
                 id="startPlate"
                 geometry="primitive: plane; height: 0.1; width: 4"
-                material="color: red"
+                material="opacity: 0"
                 rotation="-90 0 0"
                 position="28 0.01 0.05"
                 event-set__collide="material.color: blue"
@@ -104,6 +126,7 @@
 
             <!-- Starting Room -->
             <a-entity
+                logger
                 mixin="wallVoxel"
                 position="30 2 2"
                 rotation="0 0 0"
@@ -147,11 +170,26 @@
                 rotation="-90 0 0"
                 width="100"
                 height="100"
-                color="#7BC8A4"
+                material="src: #grass; repeat: 10 10; color: #474747"
+                shadow="receive: true; cast: true"
             ></a-plane>
 
             <!-- Sky -->
-            <a-sky logger data-target="hello" color="#ECECEC"></a-sky>
+            <a-sky color="#191919"></a-sky>
+            <a-entity
+                light="type: ambient; color: #fff; intensity: 1"
+            ></a-entity>
+
+            <!-- Moon -->
+            <a-entity
+                geometry="primitive: sphere; radius: 3"
+                position="-28 56 -56"
+                material="color: #d1d1d1; emissive: #933838; emissiveIntensity: 0.3"
+            >
+                <a-entity
+                    light="type: point; color: #FFF; intensity: 0.4; decay: 2; castShadow: true;"
+                ></a-entity>
+            </a-entity>
 
             <!-- Camera & User -->
             <a-entity

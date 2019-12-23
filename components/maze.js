@@ -101,7 +101,7 @@ AFRAME.registerComponent('amaze', {
     startGame: function() {
         console.log('Game Started!');
         this.isPlaying = true;
-        this.time = 1 * 5 * 1000; // 3 minutes
+        this.time = 3 * 60 * 1000; // 3 minutes
         this.clocks = document.querySelectorAll('.clock');
 
         this.countDown();
@@ -120,11 +120,14 @@ AFRAME.registerComponent('amaze', {
         }
     },
     countDown: function() {
+        this.clock = document.querySelector('#clock-container');
         this.timeOut = setInterval(() => {
             let minutes = Math.floor(
                 (this.time % (1000 * 60 * 60)) / (1000 * 60)
             );
             let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
+
+            //Do this for each and not forEach so it doesn't double stack the calls
             this.clocks[0].setAttribute('text-geometry', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
@@ -132,6 +135,11 @@ AFRAME.registerComponent('amaze', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
             this.time -= 1000;
+
+            //Gong sound
+            this.clock.components.sound.playSound();
+
+            //Once time gets to 0 stop game
             if (this.time < 0) {
                 clearInterval(this.timeOut);
                 this.el.emit('gameOver');
@@ -210,12 +218,12 @@ function Cell(i, j, w, cols, rows) {
             //Update position (based on this URL)
             //https://aframe.io/docs/1.0.0/components/position.html#updating-position
             //Using the z as the "y-axis"
-            wall.object3D.position.set(xpos, w / 2, -ypos);
+            wall.object3D.position.set(xpos, w / 2.3, -ypos);
             wall.object3D.rotation.set(0, degToRads(theta), 0);
 
             //Check if visited
             if (this.visited) {
-                wall.setAttribute('material', 'color', 'orange');
+                wall.setAttribute('material', 'roughness', 1);
             }
 
             //Add wall to the maze;
