@@ -24,6 +24,7 @@
         <script src="components/logger.js"></script>
         <script src="components/maze.js"></script>
         <script src="components/clock.js"></script>
+        <script src="components/jump.js"></script>
         <!-- Camera Object Collider -->
         <script src="components/kinema-body.js"></script>
     </head>
@@ -155,12 +156,13 @@
             <!-- Camera & User -->
             <a-entity
                 id="player"
-                kinema-body="radius: 0.2"
+                kinema-body="radius: 0.2;"
+                jump
                 movement-controls="fly: false"
-                position="28 0 3"
+                position="28 1 3"
             >
                 <!-- I basically set this to 10.6 to see everything and 1.6 to play the game -->
-                <a-entity camera look-controls position="0 10.6 0"> </a-entity>
+                <a-entity camera look-controls position="0 1.6 0"> </a-entity>
                 <!-- Left Hand -->
                 <!-- <a-entity id="rightHand" hand-controls="left"> -->
                 <a-entity
