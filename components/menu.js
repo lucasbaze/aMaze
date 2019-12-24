@@ -31,7 +31,7 @@ AFRAME.registerComponent('menu-button', {
 
     },
     update: function (oldData) {
-        console.log('updating button: ', this.data);
+        // console.log('updating button: ', this.data);
         this.el.setAttribute('material', {
             color: this.data.active ? 'red' : 'black'
         });
@@ -54,4 +54,7 @@ AFRAME.registerComponent('start-button', {
 // helper function for debugging in browser
 function dif(i) {
     AFRAME.scenes[0].emit('setDifficulty', {difficulty: i});
+}
+function start(b) {
+    AFRAME.scenes[0].emit('setStarted', {started: b});
 }

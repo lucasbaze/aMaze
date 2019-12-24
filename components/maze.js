@@ -14,6 +14,10 @@ AFRAME.registerComponent('amaze', {
         //Have tried to change the wall width and height
         //of the mixing voxel through here
         w: { default: 4 },
+
+        // From global state
+        difficulty: { type: 'int' },
+        started: { type: 'bool', default: false }
     },
     init: function() {
         //Ensure ints
@@ -27,11 +31,17 @@ AFRAME.registerComponent('amaze', {
                 grid.push(cell);
             }
         }
-
-        //Then build the maze
-        // this.buildMaze();
     },
+    update: function (oldData) {
+        console.log('update maze')
+        if (oldData.started == false && this.data.started == true) {
+            this.buildMaze();
+        }
+    },
+
     buildMaze: function() {
+        console.log('Building maze with difficulty ', this.data.difficulty)
+
         //Set the first cell to current
         current = grid[0];
         current.visited = true;
