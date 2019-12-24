@@ -18,14 +18,14 @@ AFRAME.registerComponent('amaze', {
 
         // From global state
         difficulty: { type: 'int' },
-        started: { type: 'bool', default: false }
+        started: { type: 'bool', default: false },
     },
     init: function() {
         // this.resizeGrid(this.data.difficulty);
         this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
         this.clock = document.querySelector('#clock-container');
     },
-    update: function (oldData) {
+    update: function(oldData) {
         // When we're ready to start the game, create the grid array
         // and build the maze as necessary.
         if (oldData.started == false && this.data.started == true) {
@@ -33,7 +33,7 @@ AFRAME.registerComponent('amaze', {
             this.buildMaze();
         }
     },
-    setupGrid: function () {
+    setupGrid: function() {
         let sizes = [40, 54, 68];
         let difficulty = this.data.difficulty;
         let width = sizes[difficulty];
@@ -44,7 +44,7 @@ AFRAME.registerComponent('amaze', {
         let rows = Math.floor(height / this.data.w);
 
         console.log('Creating a ', cols, 'x', rows, ' grid');
-        console.log(this.data)
+        console.log(this.data);
 
         //Loop through each col and rows and push to grid a new cell
         for (let j = 0; j < rows; j++) {
@@ -56,7 +56,7 @@ AFRAME.registerComponent('amaze', {
     },
 
     buildMaze: function() {
-        console.log('Building maze with difficulty ', this.data.difficulty)
+        console.log('Building maze with difficulty ', this.data.difficulty);
 
         //Set the first cell to current
         current = grid[0];
@@ -145,7 +145,6 @@ AFRAME.registerComponent('amaze', {
         this.el.addEventListener('gameOver', this.gameOver.bind(this));
     },
     gameOver: function() {
-        clearInterval(this.timeOut);
         if (this.time > 0) {
             console.log('Beat the level!');
         } else {
@@ -153,8 +152,8 @@ AFRAME.registerComponent('amaze', {
         }
     },
 
-    tick: function (t, dt) {
-        if(this.isPlaying === true && this.clocks) {
+    tick: function(t, dt) {
+        if (this.isPlaying === true && this.clocks) {
             let minutes = Math.floor(
                 (this.time % (1000 * 60 * 60)) / (1000 * 60)
             );
@@ -171,6 +170,10 @@ AFRAME.registerComponent('amaze', {
 
             //Gong sound
             this.clock.components.sound.playSound();
+
+            if (this.time < 0) {
+                this.el.emit('gameOver');
+            }
         }
     },
 
@@ -275,7 +278,7 @@ function Cell(i, j, w, cols, rows) {
             //https://aframe.io/docs/1.0.0/components/position.html#updating-position
             //Using the z as the "y-axis"
             wall.object3D.position.set(xpos, w / 2.3, -ypos);
-            wall.object3D.rotation.set(0, degToRads(theta), 0);
+            wall.object3D.rotation.set(0, degToRads(-theta), 0);
 
             //Check if visited
             if (this.visited) {

@@ -32,12 +32,12 @@
                     started: false,
                 },
                 handlers: {
-                    setDifficulty: function (state, action) {
+                    setDifficulty: function(state, action) {
                         state.difficulty = action.difficulty;
                     },
                     setStarted: function(state, action) {
                         state.started = action.started;
-                    }
+                    },
                 },
             });
         </script>
@@ -53,11 +53,12 @@
     <body>
         <a-scene
             shadow
-            sound="src: url(./assets/background.wav); loop: true; autoplay: true; volume: 6"
+            sound="src: #background; loop: true; autoplay: true; volume: 6"
         >
             <a-assets>
                 <img id="grass" src="assets/dark-grass.jpg" />
                 <img id="trees" src="assets/dark-trees.jpg" />
+                <img id="trans-trees" src="assets/transparent-trees.png" />
                 <a-asset-item
                     id="wall"
                     src="models/wall/scene.gltf"
@@ -67,11 +68,13 @@
                     class="wall"
                     static-body
                     shadow="cast: true;"
-                    geometry="primitive: box; height: 3.95; width: 0.1; depth: 3.95;"
-                    material="src: #trees; color: #933838;"
+                    geometry="primitive: box; height: 4; width: 0.1; depth: 4;"
+                    material="src: #trans-trees; transparent: true; side: double"
                     event-set__collide="material.color: red"
                 >
                 </a-mixin>
+                <audio id="background" src="assets/background.wav"></audio>
+                <audio id="gong" src="assets/gong1.wav"></audio>
             </a-assets>
 
             <!-- gltf-model="#wall" -->
@@ -102,7 +105,7 @@
                 geometry="primitive: box; height: 4; width: 0.1; depth: 8;"
                 position="28 18 -28"
                 material="color: #191919"
-                sound="src: url(./assets/gong1.wav); volume: 10;"
+                sound="src: #gong; volume: 10;"
                 bind__visible="started"
             >
                 <a-entity
@@ -133,7 +136,8 @@
                 position="28 0.01 0.05"
                 event-set__collide="material.color: blue"
                 proxy-event="event: collide; to: #amaze; as: startGame;"
-            ></a-entity> <!-- pass 'collide' event on a-entity as 'startGame' event to amaze -->
+            ></a-entity>
+            <!-- pass 'collide' event on a-entity as 'startGame' event to amaze -->
 
             <!-- Endgame plate -->
             <a-entity
@@ -148,9 +152,9 @@
             ></a-entity>
 
             <!-- Difficulty Menu -->
-            <a-entity position="28 0 0" bind__visible="!started">
+            <a-entity position="28 0 1" bind__visible="!started">
                 <a-entity
-                    menu-button="active: false; index: 0"
+                    menu-button="active: true; index: 0"
                     bind="menu-button.active: difficulty == 0"
                     text-geometry="value: Easy; size: 0.3; height: 0.02;"
                     position="-1.5 3 0"
@@ -194,6 +198,13 @@
                 mixin="wallVoxel"
                 position="28 2 4"
                 rotation="0 90 0"
+            ></a-entity>
+            <a-entity
+                geometry="primitive: box; height: 3.95; width: 0.1; depth: 3.95;"
+                material="src: #trees; color: #933838;"
+                position="28 2 0"
+                rotation="0 90 0"
+                bind__visible="!started"
             ></a-entity>
 
             <!-- Wanted to test 2 different styles of fonts -->

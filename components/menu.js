@@ -5,7 +5,7 @@ AFRAME.registerComponent('menu-button', {
     },
     init: function() {
         var data = this.data;
-        var el = this.el;  // <a-text>
+        var el = this.el; // <a-text>
         var matl = el.getAttribute('material'); // this doesn't parse to an object for some reason
         // var defaultColor = matl.color;
         // var defaultOpacity = matl.opacity;
@@ -13,11 +13,11 @@ AFRAME.registerComponent('menu-button', {
         // console.log(matl);
         // console.log('default opacity', defaultOpacity)
 
-        el.addEventListener('mouseenter', function () {
+        el.addEventListener('mouseenter', function() {
             // el.setAttribute('material', { opacity: 1 });
         });
 
-        el.addEventListener('mouseleave', function () {
+        el.addEventListener('mouseleave', function() {
             // console.log('leave', defaultOpacity);
             // console.log(defaultOpacity)
             // el.setAttribute('material', {
@@ -25,15 +25,14 @@ AFRAME.registerComponent('menu-button', {
             // });
         });
 
-        el.addEventListener('mouseup', function () {
-            AFRAME.scenes[0].emit('setDifficulty', {difficulty: data.index});
-        })
-
+        el.addEventListener('mouseup', function() {
+            AFRAME.scenes[0].emit('setDifficulty', { difficulty: data.index });
+        });
     },
-    update: function (oldData) {
+    update: function(oldData) {
         // console.log('updating button: ', this.data);
         this.el.setAttribute('material', {
-            color: this.data.active ? 'red' : 'black'
+            color: this.data.active ? 'red' : 'black',
         });
     },
 });
@@ -43,18 +42,18 @@ AFRAME.registerComponent('start-button', {
     init: function() {
         var el = this.el;
 
-        el.addEventListener('mouseup', function () {
+        el.addEventListener('mouseup', function() {
             // start game!
             console.log('starting game!');
             AFRAME.scenes[0].emit('setStarted', { started: true });
-        })
-    }
+        });
+    },
 });
 
 // helper function for debugging in browser
 function dif(i) {
-    AFRAME.scenes[0].emit('setDifficulty', {difficulty: i});
+    AFRAME.scenes[0].emit('setDifficulty', { difficulty: i });
 }
 function start(b) {
-    AFRAME.scenes[0].emit('setStarted', {started: b});
+    AFRAME.scenes[0].emit('setStarted', { started: b });
 }

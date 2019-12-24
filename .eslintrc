@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "keyword-spacing": [{ "before": true }, { "after": true }],
+        "space-before-function-paren": ["never"]
+    }
+}
