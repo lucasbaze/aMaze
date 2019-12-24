@@ -27,11 +27,15 @@
         <script>
             AFRAME.registerState({
                 initialState: {
-                    difficulty: 0 // [0, 1, 2]
+                    difficulty: 0, // [0, 1, 2]
+                    started: false,
                 },
                 handlers: {
                     setDifficulty: function (state, action) {
                         state.difficulty = action.difficulty;
+                    },
+                    setStarted: function(state, action) {
+                        state.started = action.started;
                     }
                 },
             });
@@ -76,6 +80,7 @@
             <a-entity
                 id="amaze"
                 amaze="height: 60; width: 60"
+                bind="amaze.started: started"
                 position="0 0 0"
             ></a-entity>
 
@@ -97,7 +102,7 @@
                 position="28 18 -28"
                 material="color: #191919"
                 sound="src: url(./assets/gong1.wav); volume: 10;"
-                visible="false"
+                bind__visible="started"
             >
                 <a-entity
                     class="clock"
@@ -142,27 +147,34 @@
             ></a-entity>
 
             <!-- Difficulty Menu -->
-            <a-entity position="28 0 0">
+            <a-entity position="28 0 0" bind__visible="!started">
                 <a-entity
                     menu-button="active: false; index: 0"
                     bind="menu-button.active: difficulty == 0"
                     text-geometry="value: Easy; size: 0.3; height: 0.02;"
                     position="-1.5 3 0"
-                    material="color: black; opacity: 0.7"
+                    material="color: black;"
                 ></a-entity>
                 <a-entity
                     menu-button="active: false; index: 1"
                     bind="menu-button.active: difficulty == 1"
                     text-geometry="value: Medium; size: 0.3; height: 0.02;"
                     position="-1.5 2.5 0"
-                    material="color: black; opacity: 0.7"
+                    material="color: black;"
                 ></a-entity>
                 <a-entity
                     menu-button="active: false; index: 2"
                     bind="menu-button.active: difficulty == 2"
                     text-geometry="value: Hard; size: 0.3; height: 0.02;"
                     position="-1.5 2 0"
-                    material="color: black; transparent: true; opacity: 0.5"
+                    material="color: black;"
+                ></a-entity>
+
+                <a-entity
+                    start-button
+                    text-geometry="value: Start!; size: 0.3; height: 0.02;"
+                    position="0.5 2.5 0"
+                    material="color: black;"
                 ></a-entity>
             </a-entity>
 
@@ -188,7 +200,7 @@
 
             <!-- Wanted to test 2 different styles of fonts -->
             <!-- Candidly, Regular text is easier to deal with, but geometry text is easier to read -->
-            <a-entity position="28 0 0">
+            <a-entity position="28 0 0" bind__visible="!started">
                 <a-entity
                     text-geometry="value: Welcome!; size: 0.5; height: 0.02;"
                     position="-1.5 4 0"

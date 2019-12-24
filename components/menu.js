@@ -38,6 +38,19 @@ AFRAME.registerComponent('menu-button', {
     },
 });
 
+AFRAME.registerComponent('start-button', {
+    schema: {},
+    init: function() {
+        var el = this.el;
+
+        el.addEventListener('mouseup', function () {
+            // start game!
+            console.log('starting game!');
+            AFRAME.scenes[0].emit('setStarted', {started: true});
+        })
+    }
+});
+
 // helper function for debugging in browser
 function dif(i) {
     AFRAME.scenes[0].emit('setDifficulty', {difficulty: i});
