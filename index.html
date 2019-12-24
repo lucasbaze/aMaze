@@ -8,19 +8,34 @@
         <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script>
         <!-- Physics -->
         <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+        <!-- State -->
+        <script src="https://unpkg.com/aframe-state-component@6.7.0/dist/aframe-state-component.min.js"></script>
         <!-- Templates -->
-        <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
         <!-- Layouting -->
-        <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
         <!-- Environment -->
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
         <!-- Event setters -->
-        <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
         <!-- Proxy Event -->
-        <script src="https://unpkg.com/aframe-proxy-event-component/dist/aframe-proxy-event-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
         <!-- Font Geometry for 3D text -->
         <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
+
         <!-- Custom -->
+        <script>
+            AFRAME.registerState({
+                initialState: {
+                    difficulty: 0 // [0, 1, 2]
+                },
+                handlers: {
+                    setDifficulty: function (state, action) {
+                        state.difficulty = action.difficulty;
+                    }
+                },
+            });
+        </script>
         <script src="components/logger.js"></script>
         <script src="components/maze.js"></script>
         <script src="components/clock.js"></script>
@@ -81,6 +96,7 @@
                 position="28 18 -28"
                 material="color: #191919"
                 sound="src: url(./assets/gong1.wav); volume: 10;"
+                visible="false"
             >
                 <a-entity
                     class="clock"
@@ -110,7 +126,7 @@
                 position="28 0.01 0.05"
                 event-set__collide="material.color: blue"
                 proxy-event="event: collide; to: #amaze; as: startGame;"
-            ></a-entity>
+            ></a-entity> <!-- pass 'collide' event on a-entity as 'startGame' event to amaze -->
 
             <!-- Endgame plate -->
             <a-entity
@@ -124,22 +140,44 @@
                 proxy-event="event: collide; to: #amaze; as: gameOver;"
             ></a-entity>
 
+            <!-- Difficulty Menu -->
+            <a-entity position="28 0 0">
+                <a-entity
+                    text-geometry="value: Easy; size: 0.3; height: 0.02;"
+                    position="-1.5 3 0"
+                    material="color: black;"
+                    bind="text-geometry.value: difficulty"
+                ></a-entity>
+                <a-entity
+                    text-geometry="value: Medium; size: 0.3; height: 0.02;"
+                    position="-1.5 2.5 0"
+                    material="color: black"
+                ></a-entity>
+                <a-entity
+                    text-geometry="value: Hard; size: 0.3; height: 0.02;"
+                    position="-1.5 2 0"
+                    material="color: black"
+                ></a-entity>
+            </a-entity>
+
             <!-- Starting Room -->
             <a-entity
-                logger
                 mixin="wallVoxel"
                 position="30 2 2"
                 rotation="0 0 0"
+                visible="false"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
                 position="26 2 2"
                 rotation="0 0 0"
+                visible="false"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
                 position="28 2 4"
                 rotation="0 90 0"
+                visible="false"
             ></a-entity>
 
             <!-- Wanted to test 2 different styles of fonts -->
@@ -157,11 +195,11 @@
                 >
                 </a-entity>
             </a-entity>
-            <a-entity
+            <!-- <a-entity
                 text="value: All you have to do is find the exit. \n Good Luck!; color: black; side: double; width: 4; align: center; baseline: center;"
                 position="0 3 0"
                 material="color: blue;"
-            ></a-entity>
+            ></a-entity> -->
 
             <!-- Ground -->
             <a-plane

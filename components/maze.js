@@ -29,7 +29,7 @@ AFRAME.registerComponent('amaze', {
         }
 
         //Then build the maze
-        this.buildMaze();
+        // this.buildMaze();
     },
     buildMaze: function() {
         //Set the first cell to current
