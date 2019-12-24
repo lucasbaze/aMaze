@@ -46,7 +46,7 @@ AFRAME.registerComponent('start-button', {
         el.addEventListener('mouseup', function () {
             // start game!
             console.log('starting game!');
-            AFRAME.scenes[0].emit('setStarted', {started: true});
+            AFRAME.scenes[0].emit('setStarted', { started: true });
         })
     }
 });

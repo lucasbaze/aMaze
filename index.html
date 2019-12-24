@@ -8,6 +8,7 @@
         <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script>
         <!-- Physics -->
         <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+        <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
         <!-- State -->
         <script src="https://unpkg.com/aframe-state-component@6.7.0/dist/aframe-state-component.min.js"></script>
         <!-- Templates -->
@@ -79,7 +80,7 @@
             <!-- Increments of 4 -->
             <a-entity
                 id="amaze"
-                amaze="height: 60; width: 60; started: false; difficulty: 0;"
+                amaze="started: false; difficulty: 0;"
                 bind="amaze.started: started; amaze.difficulty: difficulty"
                 position="0 0 0"
             ></a-entity>
@@ -183,19 +184,16 @@
                 mixin="wallVoxel"
                 position="30 2 2"
                 rotation="0 0 0"
-                visible="false"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
                 position="26 2 2"
                 rotation="0 0 0"
-                visible="false"
             ></a-entity>
             <a-entity
                 mixin="wallVoxel"
                 position="28 2 4"
                 rotation="0 90 0"
-                visible="false"
             ></a-entity>
 
             <!-- Wanted to test 2 different styles of fonts -->

@@ -8,8 +8,9 @@ let stack = [];
 AFRAME.registerComponent('amaze', {
     schema: {
         //Changes the height and width of the maze
-        height: { type: 'int', default: 40 },
-        width: { type: 'int', default: 40 },
+        // height: { type: 'int', default: 40 },
+        // width: { type: 'int', default: 40 },
+
         //Same as mixin wall length (though it shouldn't have to be)
         //Have tried to change the wall width and height
         //of the mixing voxel through here
@@ -20,9 +21,30 @@ AFRAME.registerComponent('amaze', {
         started: { type: 'bool', default: false }
     },
     init: function() {
+        // this.resizeGrid(this.data.difficulty);
+        this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
+        this.clock = document.querySelector('#clock-container');
+    },
+    update: function (oldData) {
+        // When we're ready to start the game, create the grid array
+        // and build the maze as necessary.
+        if (oldData.started == false && this.data.started == true) {
+            this.setupGrid();
+            this.buildMaze();
+        }
+    },
+    setupGrid: function () {
+        let sizes = [40, 54, 68];
+        let difficulty = this.data.difficulty;
+        let width = sizes[difficulty];
+        let height = sizes[difficulty];
+
         //Ensure ints
-        let cols = Math.floor(this.data.width / this.data.w);
-        let rows = Math.floor(this.data.height / this.data.w);
+        let cols = Math.floor(width / this.data.w);
+        let rows = Math.floor(height / this.data.w);
+
+        console.log('Creating a ', cols, 'x', rows, ' grid');
+        console.log(this.data)
 
         //Loop through each col and rows and push to grid a new cell
         for (let j = 0; j < rows; j++) {
@@ -30,12 +52,6 @@ AFRAME.registerComponent('amaze', {
                 let cell = new Cell(i, j, this.data.w, cols, rows);
                 grid.push(cell);
             }
-        }
-    },
-    update: function (oldData) {
-        console.log('update maze')
-        if (oldData.started == false && this.data.started == true) {
-            this.buildMaze();
         }
     },
 
@@ -78,9 +94,11 @@ AFRAME.registerComponent('amaze', {
 
         //Build the walls needed
         for (let i = 0; i < grid.length; i++) {
-            grid[i].generateWalls(this);
+            let maze = this;
+            grid[i].generateWalls(maze, i, grid.length);
         }
     },
+
     removeWalls: function(a, b) {
         let x = a.i - b.i;
 
@@ -107,16 +125,21 @@ AFRAME.registerComponent('amaze', {
             b.walls[0] = false;
         }
     },
+
     // Thinking about how the level actions should work
     startGame: function() {
         console.log('Game Started!');
+
+        //
         this.isPlaying = true;
         this.time = 3 * 60 * 1000; // 3 minutes
         this.clocks = document.querySelectorAll('.clock');
+        this.startedAt = new Date();
 
-        this.countDown();
+        // this.countDown();
     },
-    //play() is also a default method on entities.
+
+    // play() is also a default method on entities.
     play: function() {
         this.el.addEventListener('startGame', this.startGame.bind(this));
         this.el.addEventListener('gameOver', this.gameOver.bind(this));
@@ -129,33 +152,56 @@ AFRAME.registerComponent('amaze', {
             console.log('Oh no! You lost!');
         }
     },
-    countDown: function() {
-        this.clock = document.querySelector('#clock-container');
-        this.timeOut = setInterval(() => {
+
+    tick: function (t, dt) {
+        if(this.isPlaying === true && this.clocks) {
             let minutes = Math.floor(
                 (this.time % (1000 * 60 * 60)) / (1000 * 60)
             );
             let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
 
-            //Do this for each and not forEach so it doesn't double stack the calls
             this.clocks[0].setAttribute('text-geometry', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
             this.clocks[1].setAttribute('text-geometry', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
-            this.time -= 1000;
+
+            this.time -= dt;
 
             //Gong sound
             this.clock.components.sound.playSound();
-
-            //Once time gets to 0 stop game
-            if (this.time < 0) {
-                clearInterval(this.timeOut);
-                this.el.emit('gameOver');
-            }
-        }, 1000);
+        }
     },
+
+    //
+    // countDown: function() {
+    //     this.clock = document.querySelector('#clock-container');
+    //     this.timeOut = setInterval(() => {
+    //         let minutes = Math.floor(
+    //             (this.time % (1000 * 60 * 60)) / (1000 * 60)
+    //         );
+    //         let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
+    //
+    //         //Do this for each and not forEach so it doesn't double stack the calls
+    //         this.clocks[0].setAttribute('text-geometry', {
+    //             value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
+    //         });
+    //         this.clocks[1].setAttribute('text-geometry', {
+    //             value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
+    //         });
+    //         this.time -= 1000;
+    //
+    //         //Gong sound
+    //         this.clock.components.sound.playSound();
+    //
+    //         //Once time gets to 0 stop game
+    //         if (this.time < 0) {
+    //             clearInterval(this.timeOut);
+    //             this.el.emit('gameOver');
+    //         }
+    //     }, 1000);
+    // },
 });
 
 function Cell(i, j, w, cols, rows) {
@@ -213,7 +259,7 @@ function Cell(i, j, w, cols, rows) {
         }
     };
 
-    this.generateWalls = function(maze) {
+    this.generateWalls = function(maze, idx, size) {
         //x-coordinate and y-coordinate
         let x = i * w;
         let y = j * w;
@@ -235,6 +281,19 @@ function Cell(i, j, w, cols, rows) {
             if (this.visited) {
                 wall.setAttribute('material', 'roughness', 1);
             }
+
+            // Failed attempt to animate everything in
+            // let str = `${xpos} ${w/2.3} ${-ypos}`;
+            // wall.setAttribute('animation', { property: 'position', });
+            // wall.setAttribute('animation__to', str);
+            // wall.setAttribute('animation__delay', 2000)
+            // wall.setAttribute('animation__autoplay', true)
+            //  {
+            //     property: 'position',
+            //     to: { x: xpos + 3, y: w / 2.3, z: -ypos },
+            //     delay: 3000,
+            //     duration: 1000,
+            // });
 
             //Add wall to the maze;
             maze.el.appendChild(wall);
