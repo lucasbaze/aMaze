@@ -34,22 +34,22 @@ AFRAME.registerComponent('amaze', {
         }
     },
     setupGrid: function() {
-        let sizes = [40, 54, 68];
-        let difficulty = this.data.difficulty;
-        let width = sizes[difficulty];
-        let height = sizes[difficulty];
+        this.sizes = [40, 56, 72]; // needs to be a multiple of 8
+        this.difficulty = this.data.difficulty;
+        this.width = this.sizes[this.difficulty];
+        this.height = this.sizes[this.difficulty];
 
         //Ensure ints
-        let cols = Math.floor(width / this.data.w);
-        let rows = Math.floor(height / this.data.w);
+        this.cols = Math.floor(this.width / this.data.w);
+        this.rows = Math.floor(this.height / this.data.w);
 
-        console.log('Creating a ', cols, 'x', rows, ' grid');
+        console.log('Creating a ', this.cols, 'x', this.rows, ' grid');
         console.log(this.data);
 
         //Loop through each col and rows and push to grid a new cell
-        for (let j = 0; j < rows; j++) {
-            for (let i = 0; i < cols; i++) {
-                let cell = new Cell(i, j, this.data.w, cols, rows);
+        for (let j = 0; j < this.rows; j++) {
+            for (let i = 0; i < this.cols; i++) {
+                let cell = new Cell(i, j, this.data.w, this.cols, this.rows);
                 grid.push(cell);
             }
         }
@@ -66,7 +66,8 @@ AFRAME.registerComponent('amaze', {
         grid[7].walls[2] = false;
 
         //Set ending opening wall in the middle top
-        grid[grid.length - 8].walls[0] = false;
+        //This is why size needs to be a multiple of 8
+        grid[grid.length - this.cols / 2].walls[0] = false;
 
         //Step forward to decide which walls to build
         for (let i = 0; i < grid.length * 2; i++) {
@@ -97,6 +98,10 @@ AFRAME.registerComponent('amaze', {
             let maze = this;
             grid[i].generateWalls(maze, i, grid.length);
         }
+
+        //Put the endPlate in it's proper location
+        let endPlate = document.querySelector('#endPlate');
+        endPlate.object3D.position.set(this.width / 2, 0.01, -this.height);
     },
 
     removeWalls: function(a, b) {
@@ -176,35 +181,6 @@ AFRAME.registerComponent('amaze', {
             }
         }
     },
-
-    //
-    // countDown: function() {
-    //     this.clock = document.querySelector('#clock-container');
-    //     this.timeOut = setInterval(() => {
-    //         let minutes = Math.floor(
-    //             (this.time % (1000 * 60 * 60)) / (1000 * 60)
-    //         );
-    //         let seconds = Math.floor((this.time % (1000 * 60)) / 1000);
-    //
-    //         //Do this for each and not forEach so it doesn't double stack the calls
-    //         this.clocks[0].setAttribute('text-geometry', {
-    //             value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
-    //         });
-    //         this.clocks[1].setAttribute('text-geometry', {
-    //             value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
-    //         });
-    //         this.time -= 1000;
-    //
-    //         //Gong sound
-    //         this.clock.components.sound.playSound();
-    //
-    //         //Once time gets to 0 stop game
-    //         if (this.time < 0) {
-    //             clearInterval(this.timeOut);
-    //             this.el.emit('gameOver');
-    //         }
-    //     }, 1000);
-    // },
 });
 
 function Cell(i, j, w, cols, rows) {
