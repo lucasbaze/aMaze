@@ -12,6 +12,10 @@ AFRAME.registerComponent('clock', {
         //Calculate the angle between the clock and player position;
         let rotation = Math.atan((cx - px) / (cz - pz)) + Math.PI / 2;
 
+        if (cz - pz < 0) {
+            rotation += Math.PI;
+        }
+
         //Assign rotation in radians to y rotation component of clock
         this.el.object3D.rotation.y = rotation;
     },

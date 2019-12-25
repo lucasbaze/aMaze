@@ -25,7 +25,7 @@ AFRAME.registerComponent('menu-button', {
             // });
         });
 
-        el.addEventListener('mouseup', function() {
+        el.addEventListener('mouseenter', function() {
             AFRAME.scenes[0].emit('setDifficulty', { difficulty: data.index });
         });
     },
@@ -42,10 +42,13 @@ AFRAME.registerComponent('start-button', {
     init: function() {
         var el = this.el;
 
-        el.addEventListener('mouseup', function() {
+        el.addEventListener('mouseenter', function() {
             // start game!
             console.log('starting game!');
             AFRAME.scenes[0].emit('setStarted', { started: true });
+
+            let maze = document.querySelector('#amaze');
+            maze.emit('startGame');
         });
     },
 });

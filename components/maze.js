@@ -167,9 +167,9 @@ AFRAME.registerComponent('amaze', {
             this.clocks[0].setAttribute('text-geometry', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
-            this.clocks[1].setAttribute('text-geometry', {
-                value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
-            });
+            // this.clocks[1].setAttribute('text-geometry', {
+            //     value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
+            // });
 
             this.time -= dt;
 
