@@ -1,0 +1,519 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 7422,
+      "max": [
+        108.25969696044922,
+        273.35549926757812,
+        76.842300415039062
+      ],
+      "min": [
+        -109.10289764404297,
+        -162.47000122070312,
+        -13.634639739990234
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 89064,
+      "componentType": 5126,
+      "count": 7422,
+      "max": [
+        0.99948740005493164,
+        0.99627262353897095,
+        0.99947249889373779
+      ],
+      "min": [
+        -0.99976068735122681,
+        -0.99991893768310547,
+        -0.99994701147079468
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 7422,
+      "max": [
+        0.99774700403213501,
+        0.99937045574188232,
+        0.9999803900718689,
+        1
+      ],
+      "min": [
+        -0.99996322393417358,
+        -0.96013981103897095,
+        -0.99664759635925293,
+        -1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 7428,
+      "max": [
+        7421
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 178128,
+      "componentType": 5126,
+      "count": 8356,
+      "max": [
+        111.06109619140625,
+        222.39010620117188,
+        75.76519775390625
+      ],
+      "min": [
+        -111.69080352783203,
+        -332.15301513671875,
+        -43.736198425292969
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 278400,
+      "componentType": 5126,
+      "count": 8356,
+      "max": [
+        0.99995642900466919,
+        0.9987366795539856,
+        0.9997255802154541
+      ],
+      "min": [
+        -0.99933820962905884,
+        -0.99999582767486572,
+        -0.99972939491271973
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 118752,
+      "componentType": 5126,
+      "count": 8356,
+      "max": [
+        0.99950879812240601,
+        0.99995577335357666,
+        0.99972009658813477,
+        1
+      ],
+      "min": [
+        -0.99946737289428711,
+        -0.99934548139572144,
+        -0.9999735951423645,
+        -1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 29712,
+      "componentType": 5125,
+      "count": 8358,
+      "max": [
+        8355
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 378672,
+      "componentType": 5126,
+      "count": 81,
+      "max": [
+        7.166600227355957,
+        185.32229614257812,
+        52.650100708007812
+      ],
+      "min": [
+        -10.016500473022461,
+        111.63600158691406,
+        46.251399993896484
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 379644,
+      "componentType": 5126,
+      "count": 81,
+      "max": [
+        0.45699802041053772,
+        0.29712888598442078,
+        0.99897783994674683
+      ],
+      "min": [
+        -0.45303097367286682,
+        -0.41362813115119934,
+        0.85319697856903076
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 252448,
+      "componentType": 5126,
+      "count": 81,
+      "max": [
+        -0.88726234436035156,
+        0.24802927672863007,
+        0.45984509587287903,
+        1
+      ],
+      "min": [
+        -0.99992966651916504,
+        -0.32048755884170532,
+        -0.45782113075256348,
+        1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 63144,
+      "componentType": 5125,
+      "count": 81,
+      "max": [
+        80
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "HaloGodOfWar303 (https://sketchfab.com/HaloGodOfWar303)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/slender-man-1779f886209f433db69ca6afa8af055e",
+      "title": "Slender Man"
+    },
+    "generator": "Sketchfab-6.76.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 63468,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 380616,
+      "byteOffset": 63468,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 253744,
+      "byteOffset": 444084,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 697828,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "glossinessFactor": 0,
+          "specularFactor": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "name": "Shirt"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.020742500000000001,
+            0.020742500000000001,
+            0.020742500000000001,
+            1
+          ],
+          "glossinessFactor": 0.80000000000000004,
+          "specularFactor": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "name": "Suit_Color"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            1,
+            0.071498499999999937,
+            0.071498499999999937,
+            1
+          ],
+          "glossinessFactor": 0.80000000000000004,
+          "specularFactor": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "name": "material"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TANGENT": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8,
+            "TANGENT": 10
+          },
+          "indices": 11,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.2204460492503131e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.2204460492503131e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        1,
+        0,
+        -0,
+        0,
+        -0,
+        0,
+        -1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "RootNode (model correction matrix)_1"
+    },
+    {
+      "children": [
+        7
+      ],
+      "name": "Root_2"
+    },
+    {
+      "children": [
+        8,
+        10,
+        12
+      ],
+      "matrix": [
+        0.010470000095665455,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.010470000095665455,
+        0,
+        0,
+        -0.010470000095665455,
+        0,
+        0,
+        0,
+        0,
+        3.6811099052429199,
+        1
+      ],
+      "name": "Mesh_0666.002_5"
+    },
+    {
+      "children": [
+        9
+      ],
+      "name": "Mesh_0666.002_0_6"
+    },
+    {
+      "mesh": 0,
+      "name": ""
+    },
+    {
+      "children": [
+        11
+      ],
+      "name": "Mesh_0666.002_1_7"
+    },
+    {
+      "mesh": 1,
+      "name": ""
+    },
+    {
+      "children": [
+        13
+      ],
+      "name": "Mesh_0666.002_2_8"
+    },
+    {
+      "mesh": 2,
+      "name": ""
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+

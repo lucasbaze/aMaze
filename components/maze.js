@@ -31,6 +31,7 @@ AFRAME.registerComponent('amaze', {
         if (oldData.started == false && this.data.started == true) {
             this.setupGrid();
             this.buildMaze();
+            this.placeMonsters();
         }
     },
     setupGrid: function() {
@@ -102,6 +103,20 @@ AFRAME.registerComponent('amaze', {
         //Put the endPlate in it's proper location
         let endPlate = document.querySelector('#endPlate');
         endPlate.object3D.position.set(this.width / 2, 0.01, -this.height);
+    },
+
+    placeMonsters: function() {
+        for (let i = 0; i < 5; i++) {
+            let randX = Math.floor(Math.random() * this.width);
+            let randY = Math.floor(Math.random() * this.height);
+
+            let slender = document.createElement('a-entity');
+            slender.setAttribute('gltf-model', '#slender_man');
+            slender.object3D.position.set(randX, 0, -randY);
+            slender.object3D.scale.set(0.5, 0.5, 0.5);
+
+            this.el.appendChild(slender);
+        }
     },
 
     removeWalls: function(a, b) {
