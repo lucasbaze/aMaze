@@ -150,6 +150,8 @@ AFRAME.registerComponent('amaze', {
         this.el.addEventListener('gameOver', this.gameOver.bind(this));
     },
     gameOver: function() {
+        this.isPlaying = false;
+
         if (this.time > 0) {
             console.log('Beat the level!');
         } else {
@@ -167,9 +169,6 @@ AFRAME.registerComponent('amaze', {
             this.clocks[0].setAttribute('text-geometry', {
                 value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
             });
-            // this.clocks[1].setAttribute('text-geometry', {
-            //     value: `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`,
-            // });
 
             this.time -= dt;
 
