@@ -17,11 +17,12 @@ AFRAME.registerComponent('amaze', {
         w: { default: 4 },
 
         // From global state
-        difficulty: { type: 'int' },
+        difficulty: { type: 'int', default: 1 },
         started: { type: 'bool', default: false },
     },
     init: function() {
         // this.resizeGrid(this.data.difficulty);
+        this.level = 1;
         this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
         this.clock = document.querySelector('#clock-container');
     },
@@ -35,10 +36,11 @@ AFRAME.registerComponent('amaze', {
         }
     },
     setupGrid: function() {
-        this.sizes = [40, 56, 72]; // needs to be a multiple of 8
-        this.difficulty = this.data.difficulty;
-        this.width = this.sizes[this.difficulty];
-        this.height = this.sizes[this.difficulty];
+        this.baseSize = 24;
+        // needs to be a multiple of 8
+        // this.difficulty = this.data.difficulty;
+        this.width = this.baseSize + this.level * 8;
+        this.height = this.baseSize + this.level * 8;
 
         //Ensure ints
         this.cols = Math.floor(this.width / this.data.w);
@@ -113,7 +115,7 @@ AFRAME.registerComponent('amaze', {
             let slender = document.createElement('a-entity');
             slender.setAttribute('gltf-model', '#slender_man');
             slender.object3D.position.set(randX, 0, -randY);
-            slender.object3D.scale.set(0.5, 0.5, 0.5);
+            slender.object3D.scale.set(0.4, 0.4, 0.4);
 
             this.el.appendChild(slender);
         }
@@ -164,14 +166,38 @@ AFRAME.registerComponent('amaze', {
         this.el.addEventListener('startGame', this.startGame.bind(this));
         this.el.addEventListener('gameOver', this.gameOver.bind(this));
     },
+
     gameOver: function() {
         this.isPlaying = false;
 
         if (this.time > 0) {
             console.log('Beat the level!');
+            this.level++;
+            this.resetGame();
         } else {
             console.log('Oh no! You lost!');
         }
+    },
+
+    resetGame: function() {
+        console.log('resetting Game');
+        let children = [...this.el.childNodes];
+
+        //Solution using setTimeout based on this issue
+        //https://github.com/donmccurdy/aframe-physics-system/issues/36
+        children.forEach(child => {
+            setTimeout(() => {
+                child.parentNode.removeChild(child);
+            }, 0);
+        });
+
+        //Reset to game start
+        AFRAME.scenes[0].emit('setStarted', { started: false });
+
+        //Reset player position
+        let player = document.getElementById('player');
+        player.object3D.position.set(28, 1, 3);
+        player.object3D.rotation.set(0, Math.PI, 0);
     },
 
     tick: function(t, dt) {

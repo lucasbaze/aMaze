@@ -135,7 +135,7 @@
 
             <!-- Difficulty Menu -->
             <a-entity position="28 0 1" bind__visible="!started">
-                <a-entity
+                <!-- <a-entity
                     bind="menu-button.active: difficulty == 0"
                     text-geometry="value: Easy; size: 0.2; height: 0.02;"
                     position="-1.5 2 0"
@@ -155,7 +155,7 @@
                     text-geometry="value: Hard; size: 0.2; height: 0.02;"
                     position="-1.5 1 0"
                     material="color: black;"
-                ></a-entity>
+                ></a-entity> -->
 
                 <a-entity
                     start-button
@@ -253,7 +253,6 @@
                 </a-entity>
 
                 <!-- Left Hand -->
-                <!-- <a-entity id="rightHand" hand-controls="left"> -->
                 <a-entity
                     vive-controls="hand: left; model:false"
                     oculus-touch-controls="hand: left; model:false"
@@ -266,10 +265,9 @@
                         animation__opacity="property: material.opacity; from: 1.0; to: 0.3; dur: 800; startEvents: hit"
                     ></a-sphere>
                 </a-entity>
-                <!-- </a-entity> -->
 
                 <!-- Right Hand -->
-                <!-- <a-entity id="rightHand" hand-controls="right">
+                <a-entity id="rightHand" hand-controls="right">
                     <a-entity
                         vive-controls="hand: right; model:false"
                         oculus-touch-controls="hand: right; model:false"
@@ -280,7 +278,7 @@
                             rotation="0 20 0"
                         ></a-cursor>
                     </a-entity>
-                </a-entity> -->
+                </a-entity>
             </a-entity>
         </a-scene>
     </body>
