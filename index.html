@@ -55,10 +55,12 @@
             shadow
             sound="src: #background; loop: true; autoplay: true; volume: 6"
         >
+        <!-- fog="type: linear; color: #000" -->
             <a-assets>
                 <img id="grass" src="assets/dark-grass.jpg" />
                 <img id="trees" src="assets/dark-trees.jpg" />
                 <img id="trans-trees" src="assets/transparent-trees.png" />
+                <a-asset-item id="tree" src="assets/tree/scene.gltf"></a-asset-item>
                 <a-asset-item
                     id="wall"
                     src="models/wall/scene.gltf"
@@ -102,6 +104,13 @@
             <!-- Center Positioned Clock -->
             <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees. So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.
             -->
+
+
+            <!-- <a-entity gltf-model="#tree"
+            position="28 0 -3"
+            rotation="0 0 0"
+            scale="0.01 0.01 0.01"
+            material="transparent: true; opacity: 1; side: double; alphaTest: 0.5;"></a-entity> -->
             <a-entity
                 clock
                 id="clock-container"
@@ -217,26 +226,26 @@
                 static-body
                 position="44 0 -46"
                 rotation="-90 0 0"
-                width="100"
-                height="100"
-                material="src: #grass; repeat: 10 10; color: #474747"
+                width="200"
+                height="200"
+                material="src: #grass; repeat: 10 10; color: #474747; roughness: 1;"
                 shadow="receive: true; cast: true"
             ></a-plane>
 
             <!-- Sky -->
-            <a-sky color="#191919"></a-sky>
-            <a-entity
-                light="type: ambient; color: #fff; intensity: 1"
-            ></a-entity>
+            <a-sky color="#0a0a0a"></a-sky>
+            <!-- <a-entity
+                light="type: ambient; color: #fff; intensity: 0.01"
+            ></a-entity> -->
 
             <!-- Moon -->
             <a-entity
                 geometry="primitive: sphere; radius: 3"
                 position="-28 56 -56"
-                material="color: #d1d1d1; emissive: #933838; emissiveIntensity: 0.3"
+                material="color: #f1f1f1; emissive: #fff; emissiveIntensity: 0.7"
             >
                 <a-entity
-                    light="type: point; color: #FFF; intensity: 0.4; decay: 2; castShadow: true;"
+                    light="type: point; color: #FFF; intensity: 0.5; decay: 2; castShadow: true;"
                 ></a-entity>
             </a-entity>
 
@@ -250,6 +259,12 @@
                 <!-- I basically set this to 10.6 to see everything and 1.6 to play the game -->
                 <a-entity camera look-controls position="0 1.6 0">
                     <a-cursor></a-cursor>
+                    <a-entity
+                        light="type: spot; color: #fff; angle: 30; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
+                    <a-entity
+                        light="type: spot; color: #fff; angle: 20; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
+                    <a-entity
+                        light="type: spot; color: #fff; angle: 10; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
                 </a-entity>
 
                 <!-- Left Hand -->
