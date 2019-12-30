@@ -267,18 +267,19 @@
                 </a-entity>
 
                 <!-- Right Hand -->
-                <a-entity id="rightHand" hand-controls="right">
-                    <a-entity
-                        vive-controls="hand: right; model:false"
-                        oculus-touch-controls="hand: right; model:false"
-                        haptics="dur: 40"
-                    >
-                        <a-cursor
-                            raycaster="showLine: true"
-                            rotation="0 20 0"
-                        ></a-cursor>
-                    </a-entity>
+                <!-- <a-entity id="rightHand" hand-controls="right"> -->
+                <a-entity
+                    vive-controls="hand: right; model:false"
+                    oculus-touch-controls="hand: right; model:false"
+                    haptics="dur: 40"
+                >
+                    <a-cursor
+                        raycaster="showLine: true"
+                        rotation="0 0 0"
+                        position="0 0 0"
+                    ></a-cursor>
                 </a-entity>
+                <!-- </a-entity> -->
             </a-entity>
         </a-scene>
     </body>
