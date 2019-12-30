@@ -36,7 +36,7 @@ AFRAME.registerComponent('amaze', {
         }
     },
     setupGrid: function() {
-        this.baseSize = 24;
+        this.baseSize = 40;
         // needs to be a multiple of 8
         // this.difficulty = this.data.difficulty;
         this.width = this.baseSize + this.level * 8;
