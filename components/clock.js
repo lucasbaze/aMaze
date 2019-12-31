@@ -1,4 +1,7 @@
 AFRAME.registerComponent('clock', {
+    schema: {
+        offset: { type: 'float', default: Math.PI / 2 },
+    },
     init: function() {
         this.player = document.getElementById('player');
         this.clockPosition = this.el.object3D.position;
@@ -10,7 +13,7 @@ AFRAME.registerComponent('clock', {
         let { x: px, y: py, z: pz } = this.playerPosition;
 
         //Calculate the angle between the clock and player position;
-        let rotation = Math.atan((cx - px) / (cz - pz)) + Math.PI / 2;
+        let rotation = Math.atan((cx - px) / (cz - pz)) + this.data.offset;
 
         if (cz - pz < 0) {
             rotation += Math.PI;

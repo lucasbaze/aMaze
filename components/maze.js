@@ -117,6 +117,7 @@ AFRAME.registerComponent('amaze', {
 
             let slender = document.createElement('a-entity');
             slender.setAttribute('gltf-model', '#slender_man');
+            slender.setAttribute('clock', { offset: Math.PI });
             slender.object3D.position.set(randX, 0, -randY);
             slender.object3D.scale.set(0.4, 0.4, 0.4);
 
@@ -157,7 +158,7 @@ AFRAME.registerComponent('amaze', {
 
         //
         this.isPlaying = true;
-        this.time = 0.1 * 60 * 1000; // 3 minutes
+        this.time = 3 * 60 * 1000; // 3 minutes
     },
 
     // play() is also a default method on entities.
