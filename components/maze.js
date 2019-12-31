@@ -172,7 +172,7 @@ AFRAME.registerComponent('amaze', {
 
         if (this.time > 0) {
             console.log('Beat the level!');
-            this.level++;
+            this.level = this.level + 1;
             setTimeout(() => {
                 this.resetGame();
             }, 1000);
