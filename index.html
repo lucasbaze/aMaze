@@ -55,12 +55,15 @@
             shadow
             sound="src: #background; loop: true; autoplay: true; volume: 6"
         >
-        <!-- fog="type: linear; color: #000" -->
+            <!-- fog="type: linear; color: #000" -->
             <a-assets>
                 <img id="grass" src="assets/dark-grass.jpg" />
                 <img id="trees" src="assets/dark-trees.jpg" />
                 <img id="trans-trees" src="assets/transparent-trees.png" />
-                <a-asset-item id="tree" src="assets/tree/scene.gltf"></a-asset-item>
+                <a-asset-item
+                    id="tree"
+                    src="assets/tree/scene.gltf"
+                ></a-asset-item>
                 <a-asset-item
                     id="wall"
                     src="models/wall/scene.gltf"
@@ -104,7 +107,6 @@
             <!-- Center Positioned Clock -->
             <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees. So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.
             -->
-
 
             <!-- <a-entity gltf-model="#tree"
             position="28 0 -3"
@@ -209,8 +211,15 @@
             <!-- Candidly, Regular text is easier to deal with, but geometry text is easier to read -->
             <a-entity position="28 0 0" bind__visible="!started">
                 <a-entity
-                    text-geometry="value: Are you ready to get lost?; size: 0.2; height: 0.02"
-                    position="-1.5 3.5 0"
+                    text-geometry="value: Are you ready to get lost?; size: 0.1; height: 0.02"
+                    position="-1.5 2.5 1"
+                    material="color: white"
+                >
+                </a-entity>
+                <a-entity
+                    id="levelText"
+                    text-geometry="value: Level 1; size: 0.1; height: 0.02"
+                    position="-1 1.5 1"
                     material="color: white"
                 >
                 </a-entity>
@@ -234,9 +243,9 @@
 
             <!-- Sky -->
             <a-sky color="#0a0a0a"></a-sky>
-            <!-- <a-entity
-                light="type: ambient; color: #fff; intensity: 0.01"
-            ></a-entity> -->
+            <a-entity
+                light="type: ambient; color: #fff; intensity: 1"
+            ></a-entity>
 
             <!-- Moon -->
             <a-entity
@@ -270,13 +279,10 @@
                     <a-sphere
                         radius="0.04"
                         material="transparent: true; opacity: 0.3; color: #517ecb; emissive: #fff; emissiveIntensity: 0.4"
-                        animation__emissive="property: material.emissiveIntensity; from: 1.0; to: 0.4; dur: 800; startEvents: hit"
-                        animation__opacity="property: material.opacity; from: 1.0; to: 0.3; dur: 800; startEvents: hit"
                     ></a-sphere>
                 </a-entity>
 
                 <!-- Right Hand -->
-                <!-- <a-entity id="rightHand" hand-controls="right"> -->
                 <a-entity
                     vive-controls="hand: right; model:false"
                     oculus-touch-controls="hand: right; model:false"
@@ -288,13 +294,9 @@
                         position="0 0 0"
                     ></a-cursor>
                     <a-entity
-                        light="type: spot; color: #fff; angle: 30; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
-                    <a-entity
-                        light="type: spot; color: #fff; angle: 20; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
-                    <a-entity
-                        light="type: spot; color: #fff; angle: 10; penumbra: 0.5; intensity: 1.0; distance: 20; decay: 1; castShadow: true;"></a-entity>
+                        light="type: spot; color: #fff; angle: 30; penumbra: 0.8; intensity: 5; distance: 30; decay: 1; castShadow: true;"
+                    ></a-entity>
                 </a-entity>
-                <!-- </a-entity> -->
             </a-entity>
         </a-scene>
     </body>

@@ -25,6 +25,9 @@ AFRAME.registerComponent('amaze', {
         this.level = 1;
         this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
         this.clock = document.querySelector('#clock-container');
+        this.clocks = document.querySelectorAll('.clock');
+        this.player = document.querySelector('#player');
+        this.levelText = document.querySelector('#levelText');
     },
     update: function(oldData) {
         // When we're ready to start the game, create the grid array
@@ -36,7 +39,7 @@ AFRAME.registerComponent('amaze', {
         }
     },
     setupGrid: function() {
-        this.baseSize = 40;
+        this.baseSize = 24;
         // needs to be a multiple of 8
         // this.difficulty = this.data.difficulty;
         this.width = this.baseSize + this.level * 8;
@@ -154,11 +157,7 @@ AFRAME.registerComponent('amaze', {
 
         //
         this.isPlaying = true;
-        this.time = 3 * 60 * 1000; // 3 minutes
-        this.clocks = document.querySelectorAll('.clock');
-        this.startedAt = new Date();
-
-        // this.countDown();
+        this.time = 0.1 * 60 * 1000; // 3 minutes
     },
 
     // play() is also a default method on entities.
@@ -173,9 +172,13 @@ AFRAME.registerComponent('amaze', {
         if (this.time > 0) {
             console.log('Beat the level!');
             this.level++;
-            this.resetGame();
+            setTimeout(() => {
+                this.resetGame();
+            }, 1000);
         } else {
-            console.log('Oh no! You lost!');
+            setTimeout(() => {
+                this.resetGame();
+            }, 1000);
         }
     },
 
@@ -196,8 +199,23 @@ AFRAME.registerComponent('amaze', {
 
         //Reset player position
         let player = document.getElementById('player');
-        player.object3D.position.set(28, 1, 3);
-        player.object3D.rotation.set(0, Math.PI, 0);
+        setTimeout(() => {
+            player.object3D.position.set(28, 1, 3);
+        }, 0);
+        player.object3D.rotation.set(0, 0, 0);
+
+        //Reset Clock
+        this.clocks[0].setAttribute('text-geometry', { value: '3:00' });
+
+        //Reset the grid current and stack
+        grid = [];
+        current = grid[0];
+        stack = [];
+
+        //update Level
+        this.levelText.setAttribute('text-geometry', {
+            value: `Level: ${this.level}`,
+        });
     },
 
     tick: function(t, dt) {
