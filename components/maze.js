@@ -108,6 +108,11 @@ AFRAME.registerComponent('amaze', {
         //Put the endPlate in it's proper location
         let endPlate = document.querySelector('#endPlate');
         endPlate.object3D.position.set(this.width / 2, 0.01, -this.height);
+
+        // Move the house to accomodate
+        let house = document.getElementById('spooky-house');
+        house.object3D.position.x = this.width / 2;
+        house.object3D.position.z = -(this.height + 5); // add clearance for house walkway
     },
 
     placeMonsters: function() {
@@ -175,11 +180,11 @@ AFRAME.registerComponent('amaze', {
             this.level = this.level + 1;
             setTimeout(() => {
                 this.resetGame();
-            }, 1000);
+            }, 2000);
         } else {
             setTimeout(() => {
                 this.resetGame();
-            }, 1000);
+            }, 2000);
         }
     },
 
@@ -232,10 +237,11 @@ AFRAME.registerComponent('amaze', {
 
             this.time -= dt;
 
-            //Gong sound
-            this.clock.components.sound.playSound();
+            // Gong sound
+            if(this.time % 5 == 0) this.clock.components.sound.playSound();
 
-            if (this.time < 0) {
+            if (this.time <= 0) {
+                // TODO: sound here!
                 this.el.emit('gameOver');
             }
         }

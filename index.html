@@ -103,18 +103,12 @@
             <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees.
             So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.-->
             <a-entity
-                gltf-model="assets/house/scene.gltf"
-                position="28 9.72757 -70"
-                rotation="0 -90 0"
-                scale="10 10 10"
-            ></a-entity>
-            <a-entity
                 clock
                 id="clock-container"
                 geometry="primitive: box; height: 4; width: 0.1; depth: 8;"
                 position="28 18 -28"
                 material="transparent: true; opacity: 0;"
-                sound="src: #gong; volume: 10;"
+                sound="src: #gong; volume: 10; poolSize: 3;"
                 bind__visible="started"
             >
                 <a-entity
@@ -127,7 +121,7 @@
                 </a-entity>
             </a-entity>
 
-            <!-- Endgame plate -->
+            <!-- Endgame plate and house -->
             <a-entity
                 static-body
                 id="endPlate"
@@ -137,6 +131,13 @@
                 position="28 0.01 -60"
                 event-set__collide="material.color: blue"
                 proxy-event="event: collide; to: #amaze; as: gameOver;"
+            ></a-entity>
+            <a-entity
+                id="spooky-house"
+                gltf-model="assets/house/scene.gltf"
+                position="28 9.72757 -70"
+                rotation="0 -90 0"
+                scale="10 10 10"
             ></a-entity>
 
             <!-- Difficulty Menu -->
