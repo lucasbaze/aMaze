@@ -46,6 +46,7 @@
         <script src="components/clock.js"></script>
         <script src="components/jump.js"></script>
         <script src="components/menu.js"></script>
+        <script src="components/helpers.js"></script>
         <!-- Camera Object Collider -->
         <script src="components/kinema-body.js"></script>
     </head>
@@ -63,8 +64,8 @@
                 <img id="green-trees" src="assets/trees-green.png" />
                 <img id="shrubs" src="assets/shrubs.png" />
                 <a-asset-item
-                    id="tree"
-                    src="assets/tree/scene.gltf"
+                    id="house"
+                    src="assets/house/scene.gltf"
                 ></a-asset-item>
                 <a-asset-item
                     id="wall"
@@ -98,23 +99,15 @@
                 position="0 0 0"
             ></a-entity>
 
-            <!-- Testing adding in a model for the walls -->
-            <!-- <a-entity
-                gltf-model="#wall"
-                position="28 1 -5"
-                scale="0.001 0.001 0.001"
-                rotation="0 -90 0"
-            ></a-entity> -->
-
             <!-- Center Positioned Clock -->
-            <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees. So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.
-            -->
-
-            <!-- <a-entity gltf-model="#tree"
-            position="28 0 -3"
-            rotation="0 0 0"
-            scale="0.01 0.01 0.01"
-            material="transparent: true; opacity: 1; side: double; alphaTest: 0.5;"></a-entity> -->
+            <!-- Because of the arctan calc, it'll put the "back" of the clock to the use and flip it around past 90 degrees.
+            So I just put two clocks back to back with a sheet separating them instead of trying to figure out the calculation for now.-->
+            <a-entity
+                gltf-model="assets/house/scene.gltf"
+                position="28 9.72757 -70"
+                rotation="0 -90 0"
+                scale="10 10 10"
+            ></a-entity>
             <a-entity
                 clock
                 id="clock-container"
@@ -148,28 +141,6 @@
 
             <!-- Difficulty Menu -->
             <a-entity position="28 0 1" bind__visible="!started">
-                <!-- <a-entity
-                    bind="menu-button.active: difficulty == 0"
-                    text-geometry="value: Easy; size: 0.2; height: 0.02;"
-                    position="-1.5 2 0"
-                    material="color: black;"
-                ></a-entity>
-
-                <a-entity
-                    menu-button="active: false; index: 1"
-                    bind="menu-button.active: difficulty == 1"
-                    text-geometry="value: Medium; size: 0.2; height: 0.02;"
-                    position="-1.5 1.5 0"
-                    material="color: black;"
-                ></a-entity>
-                <a-entity
-                    menu-button="active: false; index: 2"
-                    bind="menu-button.active: difficulty == 2"
-                    text-geometry="value: Hard; size: 0.2; height: 0.02;"
-                    position="-1.5 1 0"
-                    material="color: black;"
-                ></a-entity> -->
-
                 <a-entity
                     start-button
                     text-geometry="value: Start!; size: 0.3; height: 0.02;"
@@ -195,19 +166,13 @@
                 rotation="0 90 0"
             ></a-entity>
             <a-entity
+                id="starting-room-front"
                 geometry="primitive: box; height: 3.95; width: 0.1; depth: 3.95;"
                 material="src: #trans-trees; transparent: true"
                 position="28 2 0"
                 rotation="0 90 0"
                 bind__visible="!started"
             ></a-entity>
-
-            <!-- <a-entity
-                gltf-model="#slender_man"
-                position="28 0 -3"
-                rotation="0 0 0"
-                scale="0.5 0.5 0.5"
-            ></a-entity> -->
 
             <!-- Wanted to test 2 different styles of fonts -->
             <!-- Candidly, Regular text is easier to deal with, but geometry text is easier to read -->
@@ -226,11 +191,6 @@
                 >
                 </a-entity>
             </a-entity>
-            <!-- <a-entity
-                text="value: All you have to do is find the exit. \n Good Luck!; color: black; side: double; width: 4; align: center; baseline: center;"
-                position="0 3 0"
-                material="color: blue;"
-            ></a-entity> -->
 
             <!-- Ground -->
             <a-plane

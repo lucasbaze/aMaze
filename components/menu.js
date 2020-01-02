@@ -52,11 +52,3 @@ AFRAME.registerComponent('start-button', {
         });
     },
 });
-
-// helper function for debugging in browser
-function dif(i) {
-    AFRAME.scenes[0].emit('setDifficulty', { difficulty: i });
-}
-function start(b) {
-    AFRAME.scenes[0].emit('setStarted', { started: b });
-}
