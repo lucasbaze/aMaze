@@ -47,17 +47,17 @@ jobs:
             #   if: steps.check.outputs.changed == 'true'
             #   run: echo "::set-output name=check::true"
 
-            # - name: Log when changed
-            #   if: steps.check.outputs.changed == 'true'
-            #   run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+            - name: Log when changed
+              if: steps.check.outputs.changed == 'true'
+              run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
 
             # - name: Log when unchanged
             #   if: steps.check.outputs.changed == 'false'
             #   run: echo "::set-output name=check::false"
 
-            # - name: Log when unchanged
-            #   if: steps.check.outputs.changed == 'false'
-            #   run: echo "No version change :/"
+            - name: Log when unchanged
+              if: steps.check.outputs.changed == 'false'
+              run: echo "No version change :/"
 
     deploy:
         name: Next job
