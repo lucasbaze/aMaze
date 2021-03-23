@@ -61,6 +61,7 @@ jobs:
 
     deploy:
         name: Next job
-        if: ${{ jobs.test.outputs.packageChanged === 'true' }}
+        if: "${{ jobs.test.outputs.packageChanged === 'true' }}"
+        runs-on: ubuntu-latest
         steps:
             - run: echo "Running Next Job"
