@@ -61,7 +61,8 @@ jobs:
 
     deploy:
         name: Next job
-        if: job.test.outputs.packageChanged === 'true'
+        needs: test
+        if: needs.test.outputs.packageChanged === 'true'
         runs-on: ubuntu-latest
         steps:
             - run: echo "Running Next Job"
