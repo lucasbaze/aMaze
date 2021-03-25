@@ -1,6 +1,6 @@
 {
     "name": "aMaze",
-    "version": "1.0.9-dev",
+    "version": "1.0.10-dev",
     "main": "index.js",
     "repository": "https://github.com/lucasbaze/aMaze.git",
     "author": "Lucas Bazemore <lucasabazemore@gmail.com>",
