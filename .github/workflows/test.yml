@@ -47,10 +47,10 @@ jobs:
                   diff-search: true
 
             - name: Release
-                uses: softprops/action-gh-release@v1
-                if: startsWith(github.ref, 'refs/tags/')
-                with:
-                    body_path: ReleaseNotes.md
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                  body_path: ReleaseNotes.md
 
             # - name: Log when changed
             #   if: steps.check.outputs.changed == 'true'
