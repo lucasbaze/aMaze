@@ -2,8 +2,8 @@ name: Test Workflow
 
 on:
     push:
-        tags:
-            - '*'
+        branches:
+            - master
 
 jobs:
     test:
@@ -53,6 +53,7 @@ jobs:
               uses: EndBug/version-check@v1
               with:
                   diff-search: true
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
             # - name: Log when changed
             #   if: steps.check.outputs.changed == 'true'
