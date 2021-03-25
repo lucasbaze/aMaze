@@ -39,18 +39,18 @@ jobs:
                       ${{ runner.os }}-build-
                       ${{ runner.os }}-
 
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                  body_path: ReleaseNotes.md
+
               # Check if we need to deploy the electron application
             - name: Check if version has been updated
               id: check
               uses: EndBug/version-check@v1
               with:
                   diff-search: true
-
-            - name: Release
-              uses: softprops/action-gh-release@v1
-              if: startsWith(github.ref, 'refs/tags/')
-              with:
-                  body_path: ReleaseNotes.md
 
             # - name: Log when changed
             #   if: steps.check.outputs.changed == 'true'
