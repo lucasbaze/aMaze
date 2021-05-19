@@ -1,3 +1,5 @@
+Visit Site: https://lucasbaze.github.io/aMaze/
+
 # Getting Started
 
 1. clone repo
